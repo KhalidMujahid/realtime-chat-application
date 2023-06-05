@@ -6,10 +6,14 @@ const {
   generalHandler,
 } = require("./middlewares/errorHandler.middleware");
 const router = require("./routes/router.routes");
+const helmet = require("helmet");
 const app = express();
+
+app.disable("x-powered-by");
 
 // middlewares
 app.use(express.static(path.join(__dirname, "../", "public")));
+app.use(helmet());
 
 // view engine
 app.set("view engine", "ejs");
