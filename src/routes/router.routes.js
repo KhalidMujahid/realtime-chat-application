@@ -1,8 +1,10 @@
 const { Router } = require("express");
-const { helloWorld } = require("../controllers/router.controller");
+const { helloWorld, renderEJS } = require("../controllers/router.controller");
 
 const router = Router();
 
-router.get("/", helloWorld);
+router.get("/hello", helloWorld);
+
+router.get("/", renderEJS);
 
 module.exports = router;
