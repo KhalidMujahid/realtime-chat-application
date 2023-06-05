@@ -4,6 +4,7 @@ function pageNotFound(req, res, next) {
   next(error.message);
 }
 
+// eslint-disable-next-line no-unused-vars
 function generalHandler(error, req, res, next) {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);

@@ -1,12 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const helmet = require("helmet");
 const {
   pageNotFound,
   generalHandler,
 } = require("./middlewares/errorHandler.middleware");
 const router = require("./routes/router.routes");
-const helmet = require("helmet");
 const app = express();
 
 app.disable("x-powered-by");

@@ -1,10 +1,8 @@
-const helloWorld = (req, res) => {
-  return res.status(200).send("Hello World");
-};
+const helloWorld = (req, res) => res.status(200).send("Hello World");
 
-const renderEJS = async (req, res, next) => {
+const renderEJS = (req, res, next) => {
   try {
-    return res.status(200).render("index");
+    res.status(200).render("index");
   } catch (error) {
     next(error);
   }
