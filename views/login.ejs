@@ -26,16 +26,28 @@
         width: 100vw;
         height: 100vh;
     }
+    .links {
+        margin: 5px 0px;
+        font-size: 12px;
+    }
+    a{
+        color: black;
+    }
 </style>
 </head>
 <body>
     <div class="wrapper">
 
-        <form action="" class="card p-3 w-50">
-            <h3>CREATE AN ACCOUNT</h3>
+        <form action="" class="card p-3 w-25">
+            <h3>SIGN IN</h3>
             <input type="text" placeholder="username" class="form-control mt-2">
             <input type="password" placeholder="password" class="form-control mt-2">
-            <button class="btn btn-success mt-4 p-3 w-25">submit</button>
+            <button class="btn btn-success mt-4 mb-3 p-3 w-25">login</button>
+            <div class="links">
+                <a href="/"><p>DON'T REMEMBER PASSWORD?</p></a>
+                <a href="/">CREATE A NEW ACCOUNT</a>
+            </div>
+
         </form>
     </div>
 </body>
