@@ -1,10 +1,14 @@
 const { Router } = require("express");
-const { helloWorld, renderEJS } = require("../controllers/router.controller");
+const { helloWorld, renderEJS, signUp, login } = require("../controllers/router.controller");
 
 const router = Router();
 
 router.get("/hello", helloWorld);
 
 router.get("/", renderEJS);
+
+router.get('/register', signUp)
+
+router.get('/login', login)
 
 module.exports = router;
