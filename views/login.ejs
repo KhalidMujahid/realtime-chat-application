@@ -1,54 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
-    <title>Document</title>
-<style>
-    form{
-        
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
+    <title><%= title %></title>
+    <style>
+      form {
         left: 0;
         margin: auto;
-    }
-    .form-control{
+      }
+      .form-control {
         width: 100%;
         padding: 1rem;
-    }
-    .name{
+      }
+      .name {
         padding: 1rem;
-    }
-    .wrapper{
+      }
+      .wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100vw;
         height: 100vh;
-    }
-    .links {
+      }
+      .links {
         margin: 5px 0px;
         font-size: 12px;
-    }
-    a{
+      }
+      a {
         color: black;
-    }
-</style>
-</head>
-<body>
+      }
+    </style>
+  </head>
+  <body>
     <div class="wrapper">
-
-        <form action="" class="card p-3 w-25">
-            <h3>SIGN IN</h3>
-            <input type="text" placeholder="username" class="form-control mt-2">
-            <input type="password" placeholder="password" class="form-control mt-2">
-            <button class="btn btn-success mt-4 mb-3 p-3 w-25">login</button>
-            <div class="links">
-                <a href="/"><p>DON'T REMEMBER PASSWORD?</p></a>
-                <a href="/">CREATE A NEW ACCOUNT</a>
-            </div>
-
-        </form>
+      <form action="/login" method="post" class="card p-3 w-25">
+        <h3>SIGN IN</h3>
+        <% if(error) {%>
+        <p class="text-danger"><%= error %></p>
+        <%}%>
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          class="form-control mt-2"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          class="form-control mt-2"
+        />
+        <button type="submit" class="btn btn-success mt-4 mb-3 p-3 w-25">
+          login
+        </button>
+        <div class="links">
+          <a href="/forget"><p>DON'T REMEMBER PASSWORD?</p></a>
+          <a href="/register">CREATE A NEW ACCOUNT</a>
+        </div>
+      </form>
     </div>
-</body>
+  </body>
 </html>

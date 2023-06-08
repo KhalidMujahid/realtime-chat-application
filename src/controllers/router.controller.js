@@ -8,16 +8,38 @@ const renderEJS = (req, res, next) => {
   }
 };
 
+// get request
 const signUp = (req, res) => {
-  return res.status(200).render('signup')
-}
+  res.status(200).render("signup", { error: null, title: "Sign up page" });
+};
 
+// get request
 const login = (req, res) => {
-  return res.status(200).render('login')
-}
+  res.status(200).render("login", { error: null, title: "Login page" });
+};
+
+// post request
+const handleLogin = (req, res, next) => {
+  try {
+    console.log(req.body);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const handleSignUp = (req, res, next) => {
+  try {
+    console.log(req.body);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   helloWorld,
   renderEJS,
   signUp,
-  login
+  login,
+  handleLogin,
+  handleSignUp,
 };
