@@ -1,4 +1,6 @@
 const helloWorld = (req, res) => res.status(200).send("Hello World");
+const bcrypt = require("bcrypt");
+const User = require("../models/users.model");
 
 const renderEJS = (req, res, next) => {
   try {
@@ -19,17 +21,34 @@ const login = (req, res) => {
 };
 
 // post request
-const handleLogin = (req, res, next) => {
+
+const handleSignUp = async (req, res, next) => {
   try {
-    console.log(req.body);
+    const { fullname, username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 13);
+    const user = User({
+      fullname,
+      username,
+      password: hashedPassword,
+    });
+    const savedUser = await user.save();
+    res.status(200).send(savedUser);
+    console.log(savedUser);
   } catch (error) {
     next(error);
   }
 };
-
-const handleSignUp = (req, res, next) => {
+const handleLogin = async (req, res, next) => {
   try {
-    console.log(req.body);
+    const { username, password } = req.body;
+    const user = User.findOne({ username });
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (!isPasswordCorrect) {
+      res.status(401).send("Invalid Credentials");
+    }
+    res.status(200).send("Login Successful...");
+    console.log(user);
   } catch (error) {
     next(error);
   }
@@ -40,6 +59,6 @@ module.exports = {
   renderEJS,
   signUp,
   login,
-  handleLogin,
   handleSignUp,
+  handleLogin,
 };
