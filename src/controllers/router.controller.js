@@ -51,7 +51,6 @@ const handleLogin = async (req, res, next) => {
       res.status(401).send("Invalid Credentials");
     }
     res.status(200).send("Login Successful...");
-    console.log(user);
   } catch (error) {
     next(error);
   }
