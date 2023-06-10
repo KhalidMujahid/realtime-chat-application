@@ -25,6 +25,14 @@ const login = (req, res) => {
 const handleSignUp = async (req, res, next) => {
   try {
     const { fullname, username, password } = req.body;
+    const existingUser = User.findOne({ username });
+    if (existingUser) {
+      res.status(400).render("signup", {
+        error: "Username already exists, please pick another.",
+        title: "Error | Sign up page",
+      });
+      return;
+    }
     const hashedPassword = await bcrypt.hash(password, 13);
     const user = User({
       fullname,
@@ -41,11 +49,21 @@ const handleSignUp = async (req, res, next) => {
 const handleLogin = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = User.findOne({ username });
-
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.status(400).render("login", {
+        error: "username does not exist or password is incorrect.",
+        title: "Error | Sign up page",
+      });
+      return;
+    }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      res.status(401).send("Invalid Credentials");
+      res.status(400).render("login", {
+        error: "username or password is incorrect.",
+        title: "Error | Sign up page",
+      });
+      return;
     }
     res.status(200).send("Login Successful...");
     console.log(user);
