@@ -8,7 +8,6 @@ module.exports.loginValidationMiddleware = (req, res, next) => {
       error: error.details[0].message,
       title: "Error | Login page",
     });
-    console.log(JSON.stringify(error, null, 3));
   }
   req.body = value;
   next();
