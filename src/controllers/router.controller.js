@@ -1,6 +1,7 @@
-const helloWorld = (req, res) => res.status(200).send("Hello World");
 const bcrypt = require("bcrypt");
 const User = require("../models/users.model");
+
+const helloWorld = (req, res) => res.status(200).send("Hello World");
 
 const renderEJS = (req, res, next) => {
   try {
@@ -41,7 +42,7 @@ const handleSignUp = async (req, res, next) => {
 const handleLogin = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = User.findOne({ username });
+    const user = await User.findOne({ username });
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
