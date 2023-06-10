@@ -44,6 +44,8 @@ const handleLogin = async (req, res, next) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
 
+    if (!user) res.status(401).send("Invalid Credentials");
+
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       res.status(401).send("Invalid Credentials");
