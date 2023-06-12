@@ -27,7 +27,7 @@ const login = (req, res) => {
 const handleSignUp = async (req, res, next) => {
   try {
     const { fullname, username, password } = req.body;
-    const existingUser = User.findOne({ username });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).render("signup", {
         error: "Username already exists, please pick another.",
