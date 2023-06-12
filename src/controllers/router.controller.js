@@ -64,6 +64,8 @@ const handleLogin = async (req, res, next) => {
         title: "Error | Sign up page",
       });
     }
+    req.session.isLoggedIn = true;
+    req.session.user = user;
     return res.status(301).redirect("/dashboard");
   } catch (error) {
     next(error);
@@ -72,6 +74,11 @@ const handleLogin = async (req, res, next) => {
 
 const renderDashboard = (req, res, next) => {
   try {
+    if(req.session.isLoggedIn){
+      return res.status(200).render("dashboard",{ title: "My Dashboard", user: req.session.user });
+    } else {
+      return res.status(301).redirect("/login");
+    }
   } catch (error) {
     next(error);
   }
