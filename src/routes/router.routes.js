@@ -6,6 +6,7 @@ const {
   login,
   handleLogin,
   handleSignUp,
+  renderDashboard,
 } = require("../controllers/router.controller");
 const {
   loginValidationMiddleware,
@@ -30,5 +31,7 @@ router.post("/login", loginValidationMiddleware, handleLogin);
 
 // Sign up
 router.post("/register", signUpValidationMiddleware, handleSignUp);
+
+router.get("/dashboard", renderDashboard);
 
 module.exports = router;

@@ -2,6 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
+const expressLayouts = require("express-ejs-layouts");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const {
   pageNotFound,
   generalHandler,
@@ -16,8 +19,23 @@ app.use(express.static(path.join(__dirname, "../", "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
+// session
+app.use(
+  session({
+    secret: process.env.TOP_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  }),
+);
+
+app.use(cookieParser());
+
 // view engine
 app.set("view engine", "ejs");
+app.use(expressLayouts);
 
 // testing route
 app.use("/", router);

@@ -5,8 +5,9 @@ const helloWorld = (req, res) => res.status(200).send("Hello World");
 
 const renderEJS = (req, res, next) => {
   try {
-    res.status(200).render("index");
+    res.status(200).render("index", { title: "Home Page" });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -28,11 +29,10 @@ const handleSignUp = async (req, res, next) => {
     const { fullname, username, password } = req.body;
     const existingUser = User.findOne({ username });
     if (existingUser) {
-      res.status(400).render("signup", {
+      return res.status(400).render("signup", {
         error: "Username already exists, please pick another.",
         title: "Error | Sign up page",
       });
-      return;
     }
     const hashedPassword = await bcrypt.hash(password, 13);
     const user = new User({
@@ -41,8 +41,7 @@ const handleSignUp = async (req, res, next) => {
       password: hashedPassword,
     });
     const savedUser = await user.save();
-    res.status(200).send(savedUser);
-    console.log(savedUser);
+    return res.status(200).send(savedUser);
   } catch (error) {
     next(error);
   }
@@ -53,21 +52,26 @@ const handleLogin = async (req, res, next) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      res.status(400).render("login", {
+      return res.status(400).render("login", {
         error: "username does not exist or password is incorrect.",
         title: "Error | Sign up page",
       });
-      return;
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      res.status(400).render("login", {
+      return res.status(400).render("login", {
         error: "username or password is incorrect.",
         title: "Error | Sign up page",
       });
-      return;
     }
-    res.status(200).send("Login Successful...");
+    return res.status(301).redirect("/dashboard");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const renderDashboard = (req, res, next) => {
+  try {
   } catch (error) {
     next(error);
   }
@@ -80,4 +84,5 @@ module.exports = {
   login,
   handleSignUp,
   handleLogin,
+  renderDashboard,
 };
