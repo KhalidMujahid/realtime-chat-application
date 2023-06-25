@@ -54,14 +54,14 @@ const handleLogin = async (req, res, next) => {
     if (!user) {
       return res.status(400).render("login", {
         error: "username does not exist or password is incorrect.",
-        title: "Error | Sign up page",
+        title: "Error | Login page",
       });
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(400).render("login", {
         error: "username or password is incorrect.",
-        title: "Error | Sign up page",
+        title: "Error | Login page",
       });
     }
     req.session.isLoggedIn = true;
