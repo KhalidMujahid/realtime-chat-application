@@ -10,10 +10,10 @@
     "ecmaVersion": "latest"
   },
   "rules": {
+    "consistent-return": 0,
     "quotes": 0,
     "import/newline-after-import": 0,
     "no-console": "off",
-    "comma-dangle": "off",
-    "tconsistent-return": 0,
+    "comma-dangle": "off"
   }
 }
